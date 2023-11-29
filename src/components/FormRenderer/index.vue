@@ -12,6 +12,13 @@
             <div v-if="hasError(field)" class="error-message">{{ getErrorMessage(field) }}</div>
           </div>
 
+          <div v-else-if="getFieldType(field) === 'textarea'" class="input-group">
+            <label :for="getFieldName(field)" class="label">{{ getLabel(field) }}</label>
+            <input :type="getFieldType(field)" :name="getFieldName(field)" v-model="formData[getFieldName(field)]"
+              class="input" />
+            <div v-if="hasError(field)" class="error-message">{{ getErrorMessage(field) }}</div>
+          </div>
+
           <div v-else-if="getFieldType(field) === 'password'" class="input-group">
             <label :for="getFieldName(field)" class="label">{{ getLabel(field) }}</label>
             <input :type="getFieldType(field)" :name="getFieldName(field)" v-model="formData[getFieldName(field)]"
@@ -57,8 +64,8 @@ const content = formFields.map((field) => {
 
 const formData = ref(content);
 
-const getFieldName = (field) => field.split('-')[0].toLowerCase();
-const getFieldType = (field) => field.split('-')[1].toLowerCase();
+const getFieldName = (field) => field.split('-')[0].toLowerCase().trim();
+const getFieldType = (field) => field.split('-')[1].toLowerCase().trim();
 const getLabel = (field) => field.split('-')[0];
 const hasError = (field) => errors.value && errors.value.some(error => error.field === getFieldName(field));
 const getErrorMessage = (field) => {

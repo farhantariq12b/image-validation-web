@@ -72,11 +72,12 @@ const validateInput = async (formData: any) => {
   isLoading.value = true
 
   try {
-    const { data } = await UserService.validateInput(formData)
+    await UserService.validateInput(formData)
     isLoading.value = false
 
     alert('Content validated successfully.')
-    console.log(data)
+
+    validationErrors.value = []
 
     stepper.value = STEPPER_DETAILS.UPLOAD_IMAGE
   } catch (error) {
