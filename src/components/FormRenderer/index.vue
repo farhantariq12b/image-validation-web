@@ -5,7 +5,7 @@
       <div v-for="(field, index) in formFields" :key="index" class="form-field">
         <!-- Split the field string into name and type -->
         <template v-if="field.includes('-')">
-          <div v-if="getFieldType(field) === 'text'" class="input-group">
+          <div v-if="['text', 'textinput', 'textfield'].includes(getFieldType(field))" class="input-group">
             <label :for="getFieldName(field)" class="label">{{ getLabel(field) }}</label>
             <input :type="getFieldType(field)" :name="getFieldName(field)" v-model="formData[getFieldName(field)]"
               class="input" />
